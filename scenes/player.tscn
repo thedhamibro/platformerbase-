@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://disdvbp2yknbu"]
+[gd_scene load_steps=81 format=3 uid="uid://lyiywr38e2pd"]
 
 [ext_resource type="Texture2D" uid="uid://4im44or721u2" path="res://without_outline/ATTACK 1.png" id="1_ann1e"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_q563b"]
@@ -542,9 +542,9 @@ script = ExtResource("1_q563b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ebx3w")
-animation = &"idle"
+animation = &"hurt"
 autoplay = "idle"
-frame_progress = 0.0441431
+frame_progress = 0.784032
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
