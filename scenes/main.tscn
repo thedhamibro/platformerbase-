@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://40nh3lht7jh"]
+[gd_scene load_steps=10 format=4 uid="uid://40nh3lht7jh"]
 
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scenes/player.tscn" id="1_qpll5"]
 [ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://PixelPlatformerSet1v.1.1/main_lev_build.png" id="2_jnkdp"]
 [ext_resource type="Texture2D" uid="uid://ch4fu52wvocfj" path="res://PixelPlatformerSet1v.1.1/other_and_decorative.png" id="2_k6asf"]
 [ext_resource type="PackedScene" uid="uid://c3bmhe6jsfe3s" path="res://killzone.tscn" id="4_iqb30"]
+[ext_resource type="AudioStream" uid="uid://citjavwumh5dm" path="res://music/time_for_adventure.mp3" id="5_2x0k6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
 texture = ExtResource("2_jnkdp")
@@ -3102,3 +3103,7 @@ position = Vector2(1, 3)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
 position = Vector2(34, 168)
 shape = SubResource("WorldBoundaryShape2D_vsjtg")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2x0k6")
+autoplay = true
