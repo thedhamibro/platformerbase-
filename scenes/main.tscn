@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://40nh3lht7jh"]
+[gd_scene load_steps=13 format=4 uid="uid://40nh3lht7jh"]
 
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scenes/player.tscn" id="1_qpll5"]
 [ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://PixelPlatformerSet1v.1.1/main_lev_build.png" id="2_jnkdp"]
 [ext_resource type="Texture2D" uid="uid://ch4fu52wvocfj" path="res://PixelPlatformerSet1v.1.1/other_and_decorative.png" id="2_k6asf"]
+[ext_resource type="Texture2D" uid="uid://cd0ute1lpmtsd" path="res://enemy/1 Snake/Snake_idle.png" id="4_0m2w8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
 texture = ExtResource("2_jnkdp")
@@ -3060,6 +3061,57 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_snqlh")
 sources/1 = SubResource("TileSetAtlasSource_4p376")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cujfg"]
+atlas = ExtResource("4_0m2w8")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xh8f"]
+atlas = ExtResource("4_0m2w8")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w87eo"]
+atlas = ExtResource("4_0m2w8")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iaa21"]
+atlas = ExtResource("4_0m2w8")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_22jgp"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cujfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xh8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w87eo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iaa21")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
 [node name="Node2D" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-101.0, -384.0]
 metadata/_edit_vertical_guides_ = [924.0]
@@ -3086,5 +3138,12 @@ position = Vector2(-13, -46)
 [node name="Camera2D" type="Camera2D" parent="player"]
 position = Vector2(0, 1)
 zoom = Vector2(3, 3)
+limit_left = 0
 limit_bottom = 324
 position_smoothing_enabled = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D"]
+sprite_frames = SubResource("SpriteFrames_22jgp")
+animation = &"hurt"
