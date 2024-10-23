@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://lyiywr38e2pd"]
+[gd_scene load_steps=76 format=3 uid="uid://lyiywr38e2pd"]
 
 [ext_resource type="Texture2D" uid="uid://4im44or721u2" path="res://without_outline/ATTACK 1.png" id="1_ann1e"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_q563b"]
@@ -128,29 +128,9 @@ region = Rect2(960, 0, 96, 84)
 atlas = ExtResource("4_4rhbj")
 region = Rect2(1056, 0, 96, 84)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2hhj6"]
-atlas = ExtResource("5_n6h7l")
-region = Rect2(0, 0, 96, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dxucj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr6t5"]
 atlas = ExtResource("5_n6h7l")
 region = Rect2(96, 0, 96, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kmklc"]
-atlas = ExtResource("5_n6h7l")
-region = Rect2(192, 0, 96, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dojqj"]
-atlas = ExtResource("5_n6h7l")
-region = Rect2(288, 0, 96, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fpumk"]
-atlas = ExtResource("5_n6h7l")
-region = Rect2(384, 0, 96, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g4hgd"]
-atlas = ExtResource("5_n6h7l")
-region = Rect2(480, 0, 96, 84)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ny088"]
 atlas = ExtResource("6_3xdco")
@@ -391,22 +371,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2hhj6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dxucj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kmklc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dojqj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fpumk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g4hgd")
+"texture": SubResource("AtlasTexture_nr6t5")
 }],
 "loop": false,
 "name": &"defend",
@@ -544,7 +509,6 @@ script = ExtResource("1_q563b")
 sprite_frames = SubResource("SpriteFrames_ebx3w")
 animation = &"defend"
 autoplay = "idle"
-frame = 5
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
