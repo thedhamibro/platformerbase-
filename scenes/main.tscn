@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=45 format=4 uid="uid://hmx7qyqnrriq"]
 
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scenes/player.tscn" id="1_qpll5"]
 [ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://PixelPlatformerSet1v.1.1/main_lev_build.png" id="2_jnkdp"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://rdcup0us0h6x" path="res://oak_woods_v1.0/decorations/sign.png" id="21_o2tvj"]
 [ext_resource type="Texture2D" uid="uid://cr5uk183kefol" path="res://oak_woods_v1.0/decorations/fence_2.png" id="23_vchpf"]
 [ext_resource type="Texture2D" uid="uid://chcem17osd1ee" path="res://oak_woods_v1.0/decorations/fence_1.png" id="24_8bldb"]
+[ext_resource type="PackedScene" uid="uid://b12e1m882wvsn" path="res://scenes/snake.tscn" id="24_227p7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
 texture = ExtResource("2_jnkdp")
@@ -8979,10 +8980,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_5ljqw")
 
-[node name="Node2D2" type="Node2D" parent="bg"]
-position = Vector2(-0.734676, 6.25087)
-scale = Vector2(1, 1)
-
 [node name="Level" type="TileMapLayer" parent="."]
 use_parent_material = true
 position = Vector2(-3, -17)
@@ -8992,9 +8989,11 @@ tile_map_data = PackedByteArray("AAATAAAAAAArABwAAAAUAAAAAAArABwAAAAVAAAAAAArABw
 tile_set = SubResource("TileSet_lusjs")
 
 [node name="player" parent="." instance=ExtResource("1_qpll5")]
-position = Vector2(4, -77)
+position = Vector2(0, -87)
+collision_layer = 3
 
 [node name="Camera2D2" type="Camera2D" parent="player"]
+position = Vector2(2, 8)
 zoom = Vector2(3, 3)
 limit_left = -825
 limit_bottom = 120
@@ -9002,6 +9001,8 @@ position_smoothing_enabled = true
 
 [node name="killzone" parent="." instance=ExtResource("4_iqb30")]
 position = Vector2(1, 3)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
 position = Vector2(34, 168)
@@ -9056,3 +9057,6 @@ shape = SubResource("WorldBoundaryShape2D_yqsbq")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(281, 0)
 shape = SubResource("WorldBoundaryShape2D_5y7um")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("24_227p7")]
+position = Vector2(1539, -73)
