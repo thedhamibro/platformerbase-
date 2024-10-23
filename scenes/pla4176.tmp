@@ -408,7 +408,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g4hgd")
 }],
-"loop": false,
+"loop": true,
 "name": &"defend",
 "speed": 10.0
 }, {
@@ -544,8 +544,7 @@ script = ExtResource("1_q563b")
 sprite_frames = SubResource("SpriteFrames_ebx3w")
 animation = &"defend"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
+frame_progress = 0.622806
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
