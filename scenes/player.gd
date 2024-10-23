@@ -2,15 +2,15 @@ extends CharacterBody2D
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
-const ATTACK_COOLDOWN = 2  # Time in seconds before another attack can occur
+const ATTACK_COOLDOWN = 0.5  # Time in seconds before another attack can occur
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
 
 var is_attacking = false
-var attack_timer = ATTACK_COOLDOWN
+var attack_timer = 0.5
 var attack_combo = 0  # Tracks the current attack in the combo
-var is_defending = false  # Declare the defending variable
+var is_defending = false  # Tracks if the player is defending
 
 func _physics_process(delta):
 	# Apply gravity if not on the floor
@@ -36,13 +36,18 @@ func _physics_process(delta):
 
 	# Handle attacking
 	if is_on_floor():
-		if Input.is_action_just_pressed("attack") and not is_attacking:
-			attack()
+		if Input.is_action_just_pressed("attack") and not is_defending:
+			if not is_attacking:
+				await attack()  # Start attack combo
+			else:
+				if attack_combo < 2:  # Only combo if we haven't reached the last attack
+					attack_combo += 1
+					await attack()  # Trigger the next attack in the combo
 		elif is_attacking:
-			# Check if the attack combo should continue based on the attack timer
+			attack_timer -= delta  # Decrease attack cooldown timer
 			if attack_timer <= 0:
-				attack_combo = (attack_combo + 1) % 3  # Cycle through 0, 1, 2
-				attack()  # Trigger the next attack in the combo
+				is_attacking = false  # Reset attack state after the combo
+				attack_combo = 0  # Reset combo for next use
 		elif Input.is_action_just_pressed("defend") and not is_defending:
 			defend()
 		elif is_defending:
@@ -54,13 +59,6 @@ func _physics_process(delta):
 	else:
 		animated_sprite.play("jump")
 
-	# Manage attack cooldown
-	if is_attacking:
-		attack_timer -= delta
-		if attack_timer <= 0:
-			is_attacking = false
-			attack_combo = 0  # Reset the combo after cooldown
-
 	# Check for defending state
 	if is_defending and not Input.is_action_pressed("defend"):
 		stop_defending()  # Stop defending if the button is released
@@ -69,7 +67,7 @@ func _physics_process(delta):
 
 func attack() -> void:
 	is_attacking = true
-	attack_timer = ATTACK_COOLDOWN
+	attack_timer = ATTACK_COOLDOWN  # Reset cooldown for the next attack
 
 	# Play the appropriate attack animation based on the combo state
 	match attack_combo:
@@ -79,6 +77,11 @@ func attack() -> void:
 			animated_sprite.play("attack2")
 		2:
 			animated_sprite.play("attack3")
+
+	# Await the end of the current attack animation
+	await animated_sprite.animation_finished  # Wait for the animation to finish
+	is_attacking = false  # Reset attack state after the animation finishes
+	attack_combo = 0  # Reset combo for next use
 
 func defend() -> void:
 	is_defending = true
@@ -90,6 +93,7 @@ func stop_defending() -> void:
 		animated_sprite.play("idle")  # Return to idle when defense ends
 
 func _on_animation_finished(anim_name: String) -> void:
-	if anim_name == "attack1" or anim_name == "attack2" or anim_name == "attack3":
-		is_attacking = false
-		attack_timer = 0.5  # Reset the timer for the next combo opportunity
+	# Handle the end of each attack animation if needed
+	if anim_name in ["attack1", "attack2", "attack3"]:
+		# Resetting not needed here, as it's handled in the attack function
+		pass
