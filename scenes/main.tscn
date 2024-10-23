@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://40nh3lht7jh"]
+[gd_scene load_steps=8 format=4 uid="uid://40nh3lht7jh"]
 
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scenes/player.tscn" id="1_qpll5"]
 [ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://PixelPlatformerSet1v.1.1/main_lev_build.png" id="2_jnkdp"]
@@ -3060,6 +3060,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_snqlh")
 sources/1 = SubResource("TileSetAtlasSource_4p376")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_in4m7"]
+size = Vector2(31, 446.75)
+
 [node name="Node2D" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-101.0, -384.0]
 metadata/_edit_vertical_guides_ = [924.0]
@@ -3081,10 +3084,14 @@ tile_map_data = PackedByteArray("AAD5/wMAAABKACAAAAD6/wMAAABJAB4AAAD7/wMAAABKAB4
 tile_set = SubResource("TileSet_lusjs")
 
 [node name="player" parent="." instance=ExtResource("1_qpll5")]
-position = Vector2(-13, -46)
+position = Vector2(-1, -45)
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 position = Vector2(0, 1)
 zoom = Vector2(3, 3)
 limit_bottom = 324
 position_smoothing_enabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="player"]
+position = Vector2(214, -62)
+shape = SubResource("RectangleShape2D_in4m7")
