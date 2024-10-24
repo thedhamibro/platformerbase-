@@ -3093,5 +3093,5 @@ limit_bottom = 324
 position_smoothing_enabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="player"]
-position = Vector2(214, -62)
+position = Vector2(-425, -89)
 shape = SubResource("RectangleShape2D_in4m7")
