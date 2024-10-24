@@ -6,7 +6,9 @@ extends CharacterBody2D
 @export var ACCELERATION: int = 300
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var ray_cast: RayCast2D = $AnimatedSprite2D/RayCast2D
+@onready var ray_cast: RayCast2D = $AnimatedSprite2D/ai
+@onready var enemy_rc: RayCast2D = $AnimatedSprite2D/enemy
+
 @onready var timer: Timer = $Timer
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -42,7 +44,6 @@ func look_for_player() -> void:
 func change_direction() -> void:
 	if current_state == States.WANDER:
 		if sprite.flip_h:
-			# Moving right
 			if self.position.x <= right_bounds.x:
 				direction = Vector2(1, 0)
 			else:
@@ -50,15 +51,15 @@ func change_direction() -> void:
 				sprite.flip_h = false
 				ray_cast.target_position = Vector2(-125, 0)
 		else:
-			# Moving left
+			
 			if self.position.x >= left_bounds.x:
 				direction = Vector2(-1, 0)
 			else:
-				# Flip to moving right
+				
 				sprite.flip_h = true
 				ray_cast.target_position = Vector2(125, 0)
 	else:
-		# Chase state. Follow player
+		
 		direction = (player.position - self.position).normalized()
 		if direction.x > 0:
 			sprite.flip_h = false
@@ -73,11 +74,13 @@ func handle_gravity(delta: float) -> void:
 
 func handle_movement(delta: float) -> void:
 	if current_state == States.WANDER:
+		sprite.play("walk")
 		velocity = velocity.move_toward(direction * SPEED, ACCELERATION * delta)
 	else:
+		sprite.play("walk")
 		velocity = velocity.move_toward(direction * CHASE_SPEED, ACCELERATION * delta)
 	
-	move_and_slide()  # Pass velocity to move_and_slide
+	move_and_slide()
 
 func chase_player() -> void:
 	timer.stop()
@@ -87,3 +90,10 @@ func stop_chase() -> void:
 	if timer.time_left <= 0:
 		timer.start()
 	current_state = States.WANDER
+	
+func attack_player():
+	if enemy_rc.is_colliding():
+		if enemy_rc.get_collider():
+			var enemy_collider = enemy_rc.get_collider()
+			if enemy_collider == player:
+				sprite.play("attack")
