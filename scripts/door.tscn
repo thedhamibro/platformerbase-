@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba6hd0g6mil1a"]
+
+[ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://assets/collections/PixelPlatformerSet1v.1.1/main_lev_build.png" id="1_jarqc"]
+[ext_resource type="Script" path="res://scripts/door.gd" id="1_xr260"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_40u6i"]
+size = Vector2(32, 48)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_xr260")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jarqc")
+region_enabled = true
+region_rect = Rect2(1584.13, 464.135, 31.8663, 47.8652)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_40u6i")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
