@@ -17,11 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalNode="*res://node.tscn"
-
-[global_group]
-
-PLAYER=""
+Transition="*res://scripts/transition.tscn"
 
 [input]
 

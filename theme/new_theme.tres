@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://beuygs0scannc"]
+
+[ext_resource type="FontFile" uid="uid://bs4bkcdujygs5" path="res://theme/ThaleahFat.ttf" id="1_qeixv"]
+
+[resource]
+default_font = ExtResource("1_qeixv")
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/icons/icon = null

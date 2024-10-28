@@ -4,7 +4,6 @@ extends CharacterBody2D
 @export var SPEED: int = 50
 @export var CHASE_SPEED: int = 150
 @export var ACCELERATION: int = 300
-
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $AnimatedSprite2D/ai
 @onready var enemy_rc: RayCast2D = $AnimatedSprite2D/enemy
@@ -16,14 +15,9 @@ var direction: Vector2
 var right_bounds: Vector2
 var left_bounds: Vector2
 
-enum States {
-	WANDER,
-	CHASE,
-	ATTACK
-}
-
+enum States {WANDER, CHASE, ATTACK}
 var current_state = States.WANDER
-var attack_cooldown: float = 0.5  # Time before the enemy can attack again
+var attack_cooldown: float = 0.5
 var attack_timer: float = 0.0
 
 func _ready() -> void:
@@ -35,24 +29,18 @@ func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	change_direction()
 	look_for_player()
-
 	if current_state == States.CHASE:
-		attack_timer -= delta  # Decrement the attack timer
+		attack_timer -= delta
 		if attack_timer <= 0:
 			attack_player()
-
-	# Debug output
-	print("Current State: ", current_state, " Attack Timer: ", attack_timer)
 
 func look_for_player() -> void:
 	if ray_cast.is_colliding():
 		var collider = ray_cast.get_collider()
-		print("Collider detected: ", collider)  # Debugging line
 		if collider == player:
 			chase_player()
-			print("Chasing player")
-	elif current_state == States.CHASE:
-		stop_chase()
+		elif current_state == States.CHASE:
+			stop_chase()
 
 func handle_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -63,10 +51,9 @@ func handle_movement(delta: float) -> void:
 		sprite.play("walk")
 		velocity = velocity.move_toward(direction * (SPEED if current_state == States.WANDER else CHASE_SPEED), ACCELERATION * delta)
 	elif current_state == States.ATTACK:
-		velocity = Vector2.ZERO  # Stop moving during attack
-		if sprite.animation != "attack":  # Ensure attack animation plays only once
+		velocity = Vector2.ZERO
+		if sprite.animation != "attack":
 			sprite.play("attack")
-
 	move_and_slide()
 
 func chase_player() -> void:
@@ -76,25 +63,22 @@ func chase_player() -> void:
 func stop_chase() -> void:
 	if timer.time_left <= 0:
 		timer.start()
-	current_state = States.WANDER
+		current_state = States.WANDER
 
 func attack_player() -> void:
-	if enemy_rc.is_colliding():  # Check collision with player using enemy_rc
+	if enemy_rc.is_colliding():
 		var enemy_collider = enemy_rc.get_collider()
-		print("Enemy collider detected: ", enemy_collider)  # Debugging line
-		if enemy_collider == player:  # Check against player directly
-			if current_state != States.ATTACK:  # Only switch to attack if not already in attack state
+		if enemy_collider == player:
+			if current_state != States.ATTACK:
 				current_state = States.ATTACK
-				attack_timer = attack_cooldown  # Reset attack cooldown
-				sprite.play("attack")  # Play attack animation
-				print("Attacking player")
-	else:
-		current_state = States.CHASE  # Return to chase if no collision
+				attack_timer = attack_cooldown
+				sprite.play("attack")
+		else:
+			current_state = States.CHASE
 
 func change_direction() -> void:
-	var collision_offset = Vector2(17, 2)  # Collision shape offset
-	var flip_offset = Vector2(-15, 0)  # Adjust position when flipping
-
+	var collision_offset = Vector2(17, 2)
+	var flip_offset = Vector2(-15, 0)
 	if current_state == States.WANDER:
 		if sprite.flip_h:
 			if self.position.x <= right_bounds.x:
