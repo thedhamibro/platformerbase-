@@ -1,13 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://ba6hd0g6mil1a"]
+[gd_scene load_steps=4 format=3 uid="uid://bjuj6ng5xv2av"]
 
 [ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://assets/collections/PixelPlatformerSet1v.1.1/main_lev_build.png" id="1_jarqc"]
-[ext_resource type="Script" path="res://scripts/door.gd" id="1_xr260"]
+
+[sub_resource type="GDScript" id="GDScript_p8r4s"]
+script/source = "extends Area2D
+
+signal transition_to_next_level
+
+@onready var player: CharacterBody2D = $\"../player\"
+@onready var area_2d: Area2D = $\".\"
+
+func _on_body_entered(body: Node2D) -> void:
+	if body == player:
+		emit_signal(\"transition_to_next_level\")
+		#print(\"Player has entered the door area.\")
+
+# Function to handle any extra behavior for transition if needed
+func _on_transition_to_next_level() -> void:
+	#print(\"Transition signal received.\")
+	pass
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40u6i"]
 size = Vector2(32, 48)
 
 [node name="Area2D" type="Area2D"]
-script = ExtResource("1_xr260")
+script = SubResource("GDScript_p8r4s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_jarqc")
