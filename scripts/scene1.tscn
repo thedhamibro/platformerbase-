@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=52 format=4 uid="uid://hmx7qyqnrriq"]
 
 [ext_resource type="PackedScene" uid="uid://cyabn35q4nywb" path="res://scripts/transition.tscn" id="1_00s5d"]
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scripts/player.tscn" id="1_qpll5"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://bjuj6ng5xv2av" path="res://scripts/door.tscn" id="27_mgf2n"]
 [ext_resource type="Texture2D" uid="uid://bhlapu72omdee" path="res://PNG/basic/heart.png" id="28_lmyho"]
 [ext_resource type="PackedScene" uid="uid://b1lpj2yknmgws" path="res://scripts/enemy.tscn" id="29_667kp"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="31_1nq1n"]
 [ext_resource type="PackedScene" uid="uid://cmbr7m5n8oy61" path="res://scenes/coins.tscn" id="31_6w530"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
@@ -9497,9 +9498,15 @@ expand_mode = 2
 position = Vector2(1379, -86)
 
 [node name="coins" parent="." instance=ExtResource("31_6w530")]
-frame_progress = 0.78802
+position = Vector2(1332, -86)
+frame_progress = 0.270351
 
-[node name="GameManager" type="Node2D" parent="."]
+[node name="coins2" parent="." instance=ExtResource("31_6w530")]
+position = Vector2(1350, -85)
+frame_progress = 0.270351
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("31_1nq1n")
 
 [connection signal="body_entered" from="door" to="door" method="_on_body_entered"]
 [connection signal="transition_to_next_level" from="door" to="door" method="_on_transition_to_next_level"]
