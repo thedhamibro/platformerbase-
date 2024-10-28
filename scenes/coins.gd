@@ -1,5 +1,6 @@
 extends AnimatedSprite2D
 
+@onready var Node: Node = $"."
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,6 +14,6 @@ func _process(delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('PLAYER'):
-		node.coins += 1
-		node.score +=100
+		Node.coin += 1
+		Node.score +=100
 		queue_free()
