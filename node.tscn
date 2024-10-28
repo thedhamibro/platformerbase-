@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxppdkfjgr54r"]
+
+[ext_resource type="Script" path="res://scripts/node.gd" id="1_2566y"]
+
+[node name="coins" type="Node"]
+script = ExtResource("1_2566y")

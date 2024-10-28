@@ -15,6 +15,14 @@ run/main_scene="res://scripts/main menu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalNode="*res://node.tscn"
+
+[global_group]
+
+PLAYER=""
+
 [input]
 
 jump={
