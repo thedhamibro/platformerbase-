@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://cogpe7is57gaw"]
+
+[ext_resource type="FontFile" uid="uid://bs4bkcdujygs5" path="res://theme/ThaleahFat.ttf" id="1_yb26g"]
+[ext_resource type="Texture2D" uid="uid://bhlapu72omdee" path="res://PNG/basic/heart.png" id="2_2toqn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oqg80"]
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="Coin" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -101.0
+offset_right = -71.0
+offset_bottom = 55.0
+grow_horizontal = 0
+scale = Vector2(3, 3)
+theme_override_fonts/font = ExtResource("1_yb26g")
+theme_override_font_sizes/font_size = 60
+text = "0
+"
+
+[node name="Score" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -65.0
+offset_top = 117.0
+offset_right = -45.0
+offset_bottom = 154.0
+grow_horizontal = 0
+scale = Vector2(3, 3)
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("1_yb26g")
+theme_override_font_sizes/font_size = 40
+text = "0
+"
+
+[node name="Hearts" type="Panel" parent="."]
+offset_left = -25.0
+offset_top = 13.0
+offset_right = 433.0
+offset_bottom = 143.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_oqg80")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hearts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = -42.0
+offset_right = 138.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Hearts/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_2toqn")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Hearts/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_2toqn")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Hearts/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_2toqn")
+expand_mode = 2
