@@ -6,6 +6,5 @@ var coins = 0
 @onready var scoreLabel: Label = $Score
 
 func _process(delta: float) -> void:
-	$GUI/Coin.text = str(coins)
-	$GUI/Score.text = str(score)
+	$GUI2/Coin.text = str(coins)
 	
