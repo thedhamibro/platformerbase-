@@ -1,0 +1,204 @@
+[gd_scene load_steps=12 format=3 uid="uid://cogpe7is57gaw"]
+
+[ext_resource type="FontFile" uid="uid://b48ksk6lhetjh" path="res://theme/Rockboxcond12.ttf" id="1_enavk"]
+[ext_resource type="Texture2D" uid="uid://bhlapu72omdee" path="res://PNG/basic/heart.png" id="2_2toqn"]
+[ext_resource type="Texture2D" uid="uid://dick5m3ybn5j8" path="res://z/MonedaD.png" id="4_ncjme"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oqg80"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m50u8"]
+atlas = ExtResource("4_ncjme")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4rnx"]
+atlas = ExtResource("4_ncjme")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6r4q"]
+atlas = ExtResource("4_ncjme")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi14a"]
+atlas = ExtResource("4_ncjme")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxer4"]
+atlas = ExtResource("4_ncjme")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dk104"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m50u8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4rnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6r4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi14a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxer4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_qp51p"]
+resource_name = "pause.gd"
+script/source = "extends Node
+
+@onready var panel: Panel = $Panel
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var esc_pressed = Input.is_action_just_pressed(\"pause\")
+	if (esc_pressed == true):
+		get_tree().paused = true
+		panel.show()
+	else:
+		print(\"sehaj\")
+
+
+func _on_resume_pressed() -> void:
+	panel.hide()
+	get_tree().paused = false
+
+
+func _on_resume_button_down() -> void:
+	panel.hide()
+	get_tree().paused = false
+"
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="Coin" type="Label" parent="."]
+texture_filter = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -155.0
+offset_top = 24.0
+offset_right = -134.0
+offset_bottom = 47.0
+grow_horizontal = 0
+scale = Vector2(3, 3)
+theme_override_fonts/font = ExtResource("1_enavk")
+theme_override_font_sizes/font_size = 24
+text = "12
+"
+
+[node name="Hearts" type="Panel" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 241.0
+offset_bottom = 96.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_oqg80")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hearts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -31.0
+offset_right = 109.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Hearts/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_2toqn")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Hearts/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_2toqn")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Hearts/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_2toqn")
+expand_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1088.5, 50)
+scale = Vector2(4.43749, 4.875)
+sprite_frames = SubResource("SpriteFrames_dk104")
+autoplay = "default"
+frame_progress = 0.0282211
+
+[node name="PauseMenu" type="Node" parent="."]
+script = SubResource("GDScript_qp51p")
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -572.0
+offset_top = -325.0
+offset_right = 580.0
+offset_bottom = 321.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = -82.0
+offset_right = 95.5
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_enavk")
+theme_override_font_sizes/font_size = 50
+text = "Pause Menu"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -66.5
+offset_right = 100.0
+offset_bottom = 66.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Exit" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_button_down"]
+[connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Exit" to="PauseMenu" method="_on_exit_pressed"]

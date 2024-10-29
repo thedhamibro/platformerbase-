@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=53 format=4 uid="uid://hmx7qyqnrriq"]
 
 [ext_resource type="PackedScene" uid="uid://cyabn35q4nywb" path="res://scripts/transition.tscn" id="1_00s5d"]
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scripts/player.tscn" id="1_qpll5"]
@@ -9275,6 +9275,27 @@ sources/13 = SubResource("TileSetAtlasSource_jm1pp")
 normal = Vector2(0.999906, -0.0136973)
 distance = -87.0055
 
+[sub_resource type="GDScript" id="GDScript_324wf"]
+resource_name = "pause.gd"
+script/source = "extends Node
+
+@onready var panel: Panel = $Panel
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var esc_pressed = Input.is_action_just_pressed(\"pause\")
+	if (esc_pressed == true):
+		get_tree().paused = true
+		panel.show()
+	else:
+		print(\"sehaj\")
+"
+
 [node name="Node2D" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-101.0, -384.0]
 metadata/_edit_vertical_guides_ = [924.0]
@@ -9535,6 +9556,29 @@ position = Vector2(1379, -86)
 [node name="GameManager" parent="." instance=ExtResource("30_kpwks")]
 
 [node name="GUI2" parent="GameManager" instance=ExtResource("30_tdejt")]
+
+[node name="PauseMenu" type="Node" parent="."]
+script = SubResource("GDScript_324wf")
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="PauseMenu/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel/Label"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="PauseMenu/Panel/Label/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="PauseMenu/Panel/Label/VBoxContainer"]
+layout_mode = 2
 
 [node name="Coin" type="Node" parent="."]
 
