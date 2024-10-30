@@ -46,7 +46,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 9.0
 }]
 
 [sub_resource type="GDScript" id="GDScript_qp51p"]
@@ -136,11 +136,11 @@ texture = ExtResource("2_2toqn")
 expand_mode = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1088.5, 50)
+position = Vector2(1860, 50)
 scale = Vector2(4.43749, 4.875)
 sprite_frames = SubResource("SpriteFrames_dk104")
 autoplay = "default"
-frame_progress = 0.0282211
+frame_progress = 0.00903058
 
 [node name="PauseMenu" type="Node" parent="."]
 script = SubResource("GDScript_qp51p")

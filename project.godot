@@ -19,6 +19,15 @@ config/icon="res://icon.svg"
 
 Transition="*res://scripts/transition.tscn"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+mouse_cursor/custom_image="res://assets/Cursors_v2/Dark/Arrows/Arrow2.png"
+
 [input]
 
 jump={
@@ -59,3 +68,4 @@ pause={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/default_filters/use_nearest_mipmap_filter=true
