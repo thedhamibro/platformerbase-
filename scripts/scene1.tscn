@@ -9492,7 +9492,7 @@ skew = 0.000727057
 texture = ExtResource("24_8bldb")
 
 [node name="door" parent="." instance=ExtResource("27_mgf2n")]
-position = Vector2(1451, -98)
+position = Vector2(3163, -102)
 
 [node name="player" parent="." instance=ExtResource("1_qpll5")]
 position = Vector2(1284, -100)
