@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw5n4h6tk3x3v"]
+
+[ext_resource type="Texture2D" uid="uid://dcb8g76n7bwn6" path="res://PNG/basic/background.png" id="1_ihldd"]
+[ext_resource type="Texture2D" uid="uid://cnpgcp2w1fp52" path="res://PNG/basic/border.png" id="2_fctkd"]
+[ext_resource type="Texture2D" uid="uid://bhlapu72omdee" path="res://PNG/basic/heart.png" id="3_pw1nu"]
+
+[node name="Heart" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -44.5
+offset_right = 44.5
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ihldd")
+expand_mode = 2
+
+[node name="Border" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -44.5
+offset_right = 44.5
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fctkd")
+expand_mode = 2
+
+[node name="Heart" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -44.5
+offset_right = 44.5
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_pw1nu")
+expand_mode = 2

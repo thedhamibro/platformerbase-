@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal damage
+
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 const ATTACK_COOLDOWN = 0.5
@@ -11,6 +13,9 @@ var attack_combo = 0
 var is_defending = false
 
 func _physics_process(delta):
+	if Global.lives == 0:
+		queue_free()
+		
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
@@ -65,8 +70,6 @@ func attack() -> void:
 			animated_sprite.play("attack1")
 		1:
 			animated_sprite.play("attack2")
-		2:
-			animated_sprite.play("attack3")
 	await animated_sprite.animation_finished
 	is_attacking = false
 	attack_combo = 0
@@ -81,5 +84,9 @@ func stop_defending() -> void:
 		animated_sprite.play("idle")
 
 func _on_animation_finished(anim_name: String) -> void:
-	if anim_name in ["attack1", "attack2", "attack3"]:
+	if anim_name in ["attack1", "attack2"]:
 		pass
+
+
+func _on_damage() -> void:
+	Global.lives -= 1

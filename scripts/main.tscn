@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=47 format=4 uid="uid://dsjsb067qr8cu"]
 
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scripts/player.tscn" id="1_qpll5"]
 [ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://assets/collections/PixelPlatformerSet1v.1.1/main_lev_build.png" id="2_jnkdp"]
@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://chcem17osd1ee" path="res://assets/collections/oak_woods_v1.0/decorations/fence_1.png" id="24_8bldb"]
 [ext_resource type="PackedScene" uid="uid://b12e1m882wvsn" path="res://scripts/snake.tscn" id="24_227p7"]
 [ext_resource type="Script" path="res://scenes/killzone.gd" id="25_p1ibj"]
-[ext_resource type="PackedScene" uid="uid://vq7u5wan4d8o" path="res://scenes/coins.tscn" id="26_qchi4"]
+[ext_resource type="PackedScene" uid="uid://cmbr7m5n8oy61" path="res://scenes/coins.tscn" id="26_qchi4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
 texture = ExtResource("2_jnkdp")

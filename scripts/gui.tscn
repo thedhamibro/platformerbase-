@@ -1,10 +1,51 @@
-[gd_scene load_steps=12 format=3 uid="uid://cogpe7is57gaw"]
+[gd_scene load_steps=15 format=3 uid="uid://cogpe7is57gaw"]
 
 [ext_resource type="FontFile" uid="uid://b48ksk6lhetjh" path="res://theme/Rockboxcond12.ttf" id="1_enavk"]
-[ext_resource type="Texture2D" uid="uid://bhlapu72omdee" path="res://PNG/basic/heart.png" id="2_2toqn"]
+[ext_resource type="Texture2D" uid="uid://b5iciiiuev4au" path="res://theme/GUI.png" id="2_b0ok5"]
 [ext_resource type="Texture2D" uid="uid://dick5m3ybn5j8" path="res://z/MonedaD.png" id="4_ncjme"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oqg80"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1eill"]
+atlas = ExtResource("2_b0ok5")
+region = Rect2(0, 96, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gtfp"]
+atlas = ExtResource("2_b0ok5")
+region = Rect2(49, 97, 30, 30)
+
+[sub_resource type="GDScript" id="GDScript_qp51p"]
+resource_name = "pause.gd"
+script/source = "extends Node
+
+@onready var panel: Panel = $Panel
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var esc_pressed = Input.is_action_just_pressed(\"pause\")
+	if (esc_pressed == true):
+		get_tree().paused = true
+		panel.show()
+	else:
+		print(\"sehaj\")
+
+
+func _on_resume_pressed() -> void:
+	panel.hide()
+	get_tree().paused = false
+
+
+func _on_resume_button_down() -> void:
+	panel.hide()
+	get_tree().paused = false
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q8x8f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m50u8"]
 atlas = ExtResource("4_ncjme")
@@ -46,101 +87,89 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 9.0
+"speed": 7.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_qp51p"]
-resource_name = "pause.gd"
-script/source = "extends Node
-
-@onready var panel: Panel = $Panel
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	var esc_pressed = Input.is_action_just_pressed(\"pause\")
-	if (esc_pressed == true):
-		get_tree().paused = true
-		panel.show()
-	else:
-		print(\"sehaj\")
-
-
-func _on_resume_pressed() -> void:
-	panel.hide()
-	get_tree().paused = false
-
-
-func _on_resume_button_down() -> void:
-	panel.hide()
-	get_tree().paused = false
-"
-
 [node name="GUI" type="CanvasLayer"]
-
-[node name="Coin" type="Label" parent="."]
-texture_filter = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -155.0
-offset_top = 24.0
-offset_right = -134.0
-offset_bottom = 47.0
-grow_horizontal = 0
-scale = Vector2(3, 3)
-theme_override_fonts/font = ExtResource("1_enavk")
-theme_override_font_sizes/font_size = 24
-text = "12
-"
 
 [node name="Hearts" type="Panel" parent="."]
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 241.0
-offset_bottom = 96.0
+offset_right = 374.0
+offset_bottom = 153.0
+scale = Vector2(1.5, 1.5)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_oqg80")
+metadata/_edit_group_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Hearts"]
+[node name="Hidden" type="MarginContainer" parent="Hearts"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 51.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="TextureRect" type="TextureRect" parent="Hearts/Hidden"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_1eill")
+metadata/_edit_group_ = true
+
+[node name="HeartBG" type="HBoxContainer" parent="Hearts"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -109.5
-offset_top = -31.0
-offset_right = 109.5
-offset_bottom = 31.0
+offset_left = -177.0
+offset_top = -51.5
+offset_right = 177.0
+offset_bottom = 51.5
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+metadata/_edit_group_ = true
 
-[node name="TextureRect" type="TextureRect" parent="Hearts/HBoxContainer"]
+[node name="BG" type="TextureRect" parent="Hearts/HeartBG"]
 layout_mode = 2
-texture = ExtResource("2_2toqn")
+texture = SubResource("AtlasTexture_3gtfp")
 expand_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="Hearts/HBoxContainer"]
+[node name="BG2" type="TextureRect" parent="Hearts/HeartBG"]
 layout_mode = 2
-texture = ExtResource("2_2toqn")
+texture = SubResource("AtlasTexture_3gtfp")
 expand_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="Hearts/HBoxContainer"]
+[node name="BG3" type="TextureRect" parent="Hearts/HeartBG"]
 layout_mode = 2
-texture = ExtResource("2_2toqn")
+texture = SubResource("AtlasTexture_3gtfp")
 expand_mode = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1860, 50)
-scale = Vector2(4.43749, 4.875)
-sprite_frames = SubResource("SpriteFrames_dk104")
-autoplay = "default"
-frame_progress = 0.00903058
+[node name="Hearts" type="HBoxContainer" parent="Hearts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -38.0
+offset_right = 188.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+theme_override_constants/separation = 119
+alignment = 1
+metadata/_edit_group_ = true
 
 [node name="PauseMenu" type="Node" parent="."]
 script = SubResource("GDScript_qp51p")
@@ -198,6 +227,60 @@ text = "Resume"
 [node name="Exit" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Exit"
+
+[node name="Coin" type="Panel" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -389.0
+offset_top = 35.0
+offset_right = -40.0
+offset_bottom = 188.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_q8x8f")
+
+[node name="Coin" type="Label" parent="Coin"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.5
+offset_top = -68.5
+offset_right = -102.5
+offset_bottom = -53.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(10, 10)
+theme_override_fonts/font = ExtResource("1_enavk")
+theme_override_font_sizes/font_size = 16
+text = "12
+"
+
+[node name="Animated Coin" type="Control" parent="Coin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -86.0
+offset_right = 81.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coin/Animated Coin"]
+position = Vector2(43, 53)
+scale = Vector2(5.90625, 6.4375)
+sprite_frames = SubResource("SpriteFrames_dk104")
+autoplay = "default"
+frame_progress = 0.0304627
 
 [connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_button_down"]
 [connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]

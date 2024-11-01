@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Transition="*res://scripts/transition.tscn"
+Global="*res://scenes/global.gd"
 
 [display]
 
@@ -27,6 +28,10 @@ window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 mouse_cursor/custom_image="res://assets/Cursors_v2/Dark/Arrows/Arrow2.png"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Asset_Drawer/plugin.cfg")
 
 [input]
 
