@@ -20,11 +20,9 @@ func _ready() -> void:
 	#print("hello")
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name == "fade_to_black":
-		print("aniamtion")
 		on_transition_finished.emit()
 		animation_player.play("fade_to_normal")
 	elif anim_name == "fade_to_normal":
-		print("aniamtion")
 		color_rect.visible = false
 	
 #func _on_transition_finished() -> void:
@@ -39,5 +37,4 @@ func _on_animation_finished(anim_name: String) -> void:
 
 func _on_door_transition_to_next_level() -> void:
 	color_rect.visible = true
-	print("hello")
 	animation_player.play("fade_to_black")    

@@ -27,11 +27,11 @@
 [ext_resource type="Texture2D" uid="uid://chcem17osd1ee" path="res://assets/collections/oak_woods_v1.0/decorations/fence_1.png" id="24_8bldb"]
 [ext_resource type="Script" path="res://scenes/killzone.gd" id="25_p1ibj"]
 [ext_resource type="PackedScene" uid="uid://bjuj6ng5xv2av" path="res://scripts/door.tscn" id="27_mgf2n"]
-[ext_resource type="PackedScene" uid="uid://b1lpj2yknmgws" path="res://scripts/enemy.tscn" id="29_667kp"]
 [ext_resource type="PackedScene" uid="uid://cp2pvdv42n5cy" path="res://scripts/game_manager.tscn" id="30_kpwks"]
 [ext_resource type="PackedScene" uid="uid://cogpe7is57gaw" path="res://scripts/gui.tscn" id="30_tdejt"]
 [ext_resource type="PackedScene" uid="uid://cmbr7m5n8oy61" path="res://scenes/coins.tscn" id="31_aqe00"]
 [ext_resource type="Script" path="res://scripts/gui.gd" id="31_fcve2"]
+[ext_resource type="PackedScene" uid="uid://bms23j6xxfm8i" path="res://scripts/checkpoint.tscn" id="33_ncqqv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
 texture = ExtResource("2_jnkdp")
@@ -9496,7 +9496,7 @@ texture = ExtResource("24_8bldb")
 position = Vector2(3163, -102)
 
 [node name="player" parent="." instance=ExtResource("1_qpll5")]
-position = Vector2(1284, -100)
+position = Vector2(-532, -38)
 collision_layer = 3
 collision_mask = 3
 
@@ -9530,9 +9530,6 @@ shape = SubResource("WorldBoundaryShape2D_yqsbq")
 [node name="Trans" parent="." instance=ExtResource("1_00s5d")]
 visible = false
 
-[node name="Enemy" parent="." instance=ExtResource("29_667kp")]
-position = Vector2(1379, -86)
-
 [node name="GameManager" parent="." instance=ExtResource("30_kpwks")]
 
 [node name="GUI2" parent="GameManager" instance=ExtResource("30_tdejt")]
@@ -9544,10 +9541,10 @@ script = ExtResource("31_fcve2")
 position = Vector2(1074, -81)
 
 [node name="coins2" parent="Coin" instance=ExtResource("31_aqe00")]
-position = Vector2(996, -105)
+position = Vector2(996, -120)
 
 [node name="coins3" parent="Coin" instance=ExtResource("31_aqe00")]
-position = Vector2(1152, -106)
+position = Vector2(1152, -120)
 
 [node name="coins4" parent="Coin" instance=ExtResource("31_aqe00")]
 position = Vector2(441, -52)
@@ -9564,7 +9561,17 @@ position = Vector2(1714, -81)
 [node name="coins8" parent="Coin" instance=ExtResource("31_aqe00")]
 position = Vector2(1804, -81)
 
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint" parent="Checkpoints" instance=ExtResource("33_ncqqv")]
+position = Vector2(888, -70)
+
+[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("33_ncqqv")]
+position = Vector2(1533, -72)
+
 [connection signal="body_entered" from="door" to="door" method="_on_body_entered"]
 [connection signal="transition_to_next_level" from="door" to="door" method="_on_transition_to_next_level"]
 [connection signal="transition_to_next_level" from="door" to="Trans" method="_on_door_transition_to_next_level"]
 [connection signal="damage" from="player" to="killzone" method="_on_player_damage"]
+[connection signal="update_hearts" from="player" to="GameManager/GUI2" method="_on_player_update_hearts"]
+[connection signal="player_reached_checkpoint" from="Checkpoints/Checkpoint" to="player" method="_on_player_reached_checkpoint"]

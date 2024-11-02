@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 signal damage
+signal update_hearts
 
-const SPEED = 130.0
-const JUMP_VELOCITY = -300.0
+@export var SPEED = 130.0
+@export var JUMP_VELOCITY = -300.0
 const ATTACK_COOLDOWN = 0.5
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
@@ -11,10 +12,12 @@ var is_attacking = false
 var attack_timer = 0.5
 var attack_combo = 0
 var is_defending = false
+var last_checkpoint_position = Vector2()
 
 func _physics_process(delta):
 	if Global.lives == 0:
-		queue_free()
+		get_tree().reload_current_scene()
+		Global.lives = Global.max_lives
 		
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -90,3 +93,13 @@ func _on_animation_finished(anim_name: String) -> void:
 
 func _on_damage() -> void:
 	Global.lives -= 1
+	respawn()
+	
+func _on_player_reached_checkpoint(position) -> void:
+	print(position)
+	last_checkpoint_position = position
+
+func respawn(): 
+	self.position = last_checkpoint_position
+	emit_signal("update_hearts")
+	
