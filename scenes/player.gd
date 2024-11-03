@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name player
+
 signal damage
 signal update_hearts
 
