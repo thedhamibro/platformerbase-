@@ -13,6 +13,8 @@ var attack_timer = 0.5
 var attack_combo = 0
 var is_defending = false
 var last_checkpoint_position = Vector2()
+var hitDamage = 20
+var playerDamageArea
 
 func _physics_process(delta):
 	if Global.lives == 0:

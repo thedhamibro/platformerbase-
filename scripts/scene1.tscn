@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=54 format=4 uid="uid://hmx7qyqnrriq"]
 
 [ext_resource type="PackedScene" uid="uid://cyabn35q4nywb" path="res://scripts/transition.tscn" id="1_00s5d"]
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scripts/player.tscn" id="1_qpll5"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://cmbr7m5n8oy61" path="res://scenes/coins.tscn" id="31_aqe00"]
 [ext_resource type="Script" path="res://scripts/gui.gd" id="31_fcve2"]
 [ext_resource type="PackedScene" uid="uid://bms23j6xxfm8i" path="res://scripts/checkpoint.tscn" id="33_ncqqv"]
+[ext_resource type="PackedScene" uid="uid://drogy24g50th2" path="res://scripts/Enemy.tscn" id="33_uypi5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
 texture = ExtResource("2_jnkdp")
@@ -9496,7 +9497,7 @@ texture = ExtResource("24_8bldb")
 position = Vector2(3163, -102)
 
 [node name="player" parent="." instance=ExtResource("1_qpll5")]
-position = Vector2(-532, -38)
+position = Vector2(-507, -51)
 collision_layer = 3
 collision_mask = 3
 
@@ -9567,7 +9568,10 @@ position = Vector2(1804, -81)
 position = Vector2(888, -70)
 
 [node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("33_ncqqv")]
-position = Vector2(1533, -72)
+position = Vector2(1535, -71)
+
+[node name="Enemy" parent="." instance=ExtResource("33_uypi5")]
+position = Vector2(1391, -94)
 
 [connection signal="body_entered" from="door" to="door" method="_on_body_entered"]
 [connection signal="transition_to_next_level" from="door" to="door" method="_on_transition_to_next_level"]
