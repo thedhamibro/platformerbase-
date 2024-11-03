@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cogpe7is57gaw"]
+[gd_scene load_steps=14 format=3 uid="uid://cogpe7is57gaw"]
 
 [ext_resource type="FontFile" uid="uid://b48ksk6lhetjh" path="res://theme/Rockboxcond12.ttf" id="1_enavk"]
 [ext_resource type="Texture2D" uid="uid://b5iciiiuev4au" path="res://theme/GUI.png" id="2_b0ok5"]
@@ -13,37 +13,6 @@ region = Rect2(0, 96, 48, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3gtfp"]
 atlas = ExtResource("2_b0ok5")
 region = Rect2(49, 97, 30, 30)
-
-[sub_resource type="GDScript" id="GDScript_qp51p"]
-resource_name = "pause.gd"
-script/source = "extends Node
-
-@onready var panel: Panel = $Panel
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	var esc_pressed = Input.is_action_just_pressed(\"pause\")
-	if (esc_pressed == true):
-		get_tree().paused = true
-		panel.show()
-	else:
-		print(\"sehaj\")
-
-
-func _on_resume_pressed() -> void:
-	panel.hide()
-	get_tree().paused = false
-
-
-func _on_resume_button_down() -> void:
-	panel.hide()
-	get_tree().paused = false
-"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q8x8f"]
 
@@ -171,63 +140,6 @@ theme_override_constants/separation = 119
 alignment = 1
 metadata/_edit_group_ = true
 
-[node name="PauseMenu" type="Node" parent="."]
-script = SubResource("GDScript_qp51p")
-
-[node name="Panel" type="Panel" parent="PauseMenu"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -572.0
-offset_top = -325.0
-offset_right = 580.0
-offset_bottom = 321.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="PauseMenu/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -95.5
-offset_top = -82.0
-offset_right = 95.5
-offset_bottom = -34.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("1_enavk")
-theme_override_font_sizes/font_size = 50
-text = "Pause Menu"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -66.5
-offset_right = 100.0
-offset_bottom = 66.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Resume" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Resume"
-
-[node name="Exit" type="Button" parent="PauseMenu/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Exit"
-
 [node name="Coin" type="Panel" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
@@ -281,7 +193,3 @@ scale = Vector2(5.90625, 6.4375)
 sprite_frames = SubResource("SpriteFrames_dk104")
 autoplay = "default"
 frame_progress = 0.0304627
-
-[connection signal="button_down" from="PauseMenu/Panel/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_button_down"]
-[connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]
-[connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Exit" to="PauseMenu" method="_on_exit_pressed"]
