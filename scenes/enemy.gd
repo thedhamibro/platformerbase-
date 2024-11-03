@@ -4,7 +4,7 @@ class_name Enemy
 @export var speed = 20
 @export var left_bound = 1265
 @export var right_bound = 1550
-var is_enemy_chase: bool = true
+var is_enemy_chase: bool = false
 var health = 80
 var health_min = 0
 var health_max = 80
@@ -22,9 +22,10 @@ var player_in_area = false
 func _process(delta: float) -> void:
 	if !is_on_floor():
 		velocity.y += gravity * delta
-	Global.enemyDamageAmount = damage_to_deal
-	Global.enemyDamageZone = $DamageToDealArea
+	#Global.enemyDamageAmount = damage_to_deal
+	#Global.enemyDamageZone = $DamageToDealArea
 	handle_anim()
+	move(delta)
 	move_and_slide()
 
 func move(delta):
@@ -78,14 +79,14 @@ func choose(array):
 	return array.front()
 
 
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	var damage = player.hitDamage
-	if area == player.playerDamageArea:
-		take_damage(damage)
-		
-func take_damage(damage):
-	health -= damage
-	taking_damage = true
-	if health <= health_min:
-		health = health_min
-		dead = true
+#func _on_hitbox_area_entered(area: Area2D) -> void:
+	#var damage = player.hitDamage
+	#if area == player.playerDamageArea:
+		#take_damage(damage)
+		#
+#func take_damage(damage):
+	#health -= damage
+	#taking_damage = true
+	#if health <= health_min:
+		#health = health_min
+		#dead = true
