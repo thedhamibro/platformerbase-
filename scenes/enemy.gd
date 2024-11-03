@@ -22,8 +22,8 @@ var player_in_area = false
 func _process(delta: float) -> void:
 	if !is_on_floor():
 		velocity.y += gravity * delta
-
-	move(delta)
+	Global.enemyDamageAmount = damage_to_deal
+	Global.enemyDamageZone = $DamageToDealArea
 	handle_anim()
 	move_and_slide()
 

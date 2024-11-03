@@ -412,8 +412,8 @@ radius = 8.0
 height = 36.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gqyn"]
-radius = 9.0
-height = 38.0
+radius = 11.0
+height = 40.0
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_y1e8e")
@@ -436,5 +436,11 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CapsuleShape2D_5gqyn")
 
+[node name="DamageToDealArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageToDealArea"]
+shape = SubResource("CapsuleShape2D_5gqyn")
+
 [connection signal="timeout" from="DIrectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="DamageToDealArea" to="." method="_on_hitbox_area_entered"]

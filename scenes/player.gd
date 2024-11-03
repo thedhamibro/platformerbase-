@@ -66,6 +66,7 @@ func _physics_process(delta):
 		stop_defending()
 
 	move_and_slide()
+	check_hitbox()
 
 func attack() -> void:
 	is_attacking = true
@@ -105,3 +106,11 @@ func respawn():
 	self.position = last_checkpoint_position
 	emit_signal("update_hearts")
 	
+func check_hitbox():
+	var hitbox_areas = $HItbox.get_overlapping_areas()
+	#var damage: int
+	if hitbox_areas:
+		var hitbox = hitbox_areas.front()
+		if hitbox.get_parent() is Enemy:
+			Global.lives -= 1
+		

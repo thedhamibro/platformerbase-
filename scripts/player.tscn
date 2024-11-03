@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://lyiywr38e2pd"]
+[gd_scene load_steps=56 format=3 uid="uid://lyiywr38e2pd"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_q563b"]
 [ext_resource type="Texture2D" uid="uid://c2hf87hy2a3tt" path="res://FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack.png" id="2_rwxnr"]
@@ -356,6 +356,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f5ned"]
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f55so"]
+radius = 11.0
+height = 32.0
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_q563b")
@@ -363,11 +368,17 @@ SPEED = 150.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ebx3w")
-animation = &"attack1"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, 5)
+position = Vector2(-5, 4)
 shape = SubResource("CapsuleShape2D_f5ned")
+
+[node name="HItbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HItbox"]
+position = Vector2(-5, 4)
+shape = SubResource("CapsuleShape2D_f55so")
 
 [connection signal="damage" from="." to="." method="_on_damage"]
