@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=55 format=4 uid="uid://hmx7qyqnrriq"]
 
 [ext_resource type="PackedScene" uid="uid://cyabn35q4nywb" path="res://scripts/transition.tscn" id="1_00s5d"]
 [ext_resource type="Script" path="res://scripts/scene_1.gd" id="1_iqd70"]
@@ -30,7 +30,6 @@
 [ext_resource type="PackedScene" uid="uid://cp2pvdv42n5cy" path="res://scripts/game_manager.tscn" id="30_kpwks"]
 [ext_resource type="PackedScene" uid="uid://cogpe7is57gaw" path="res://scripts/gui.tscn" id="30_tdejt"]
 [ext_resource type="PackedScene" uid="uid://cmbr7m5n8oy61" path="res://scenes/coins.tscn" id="31_aqe00"]
-[ext_resource type="PackedScene" uid="uid://gbusqatvndx" path="res://scripts/pause_menu.tscn" id="31_da4vn"]
 [ext_resource type="Script" path="res://scripts/gui.gd" id="31_fcve2"]
 [ext_resource type="PackedScene" uid="uid://bms23j6xxfm8i" path="res://scripts/checkpoint.tscn" id="33_ncqqv"]
 [ext_resource type="PackedScene" uid="uid://drogy24g50th2" path="res://scripts/Enemy.tscn" id="33_uypi5"]
@@ -9537,8 +9536,6 @@ visible = false
 
 [node name="GUI2" parent="GameManager" instance=ExtResource("30_tdejt")]
 script = ExtResource("31_fcve2")
-
-[node name="PauseMenu" parent="GameManager" instance=ExtResource("31_da4vn")]
 
 [node name="Coin" type="Node" parent="."]
 

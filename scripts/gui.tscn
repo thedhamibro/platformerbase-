@@ -1,10 +1,38 @@
-[gd_scene load_steps=14 format=3 uid="uid://cogpe7is57gaw"]
+[gd_scene load_steps=15 format=3 uid="uid://cogpe7is57gaw"]
 
 [ext_resource type="FontFile" uid="uid://b48ksk6lhetjh" path="res://theme/Rockboxcond12.ttf" id="1_enavk"]
 [ext_resource type="Texture2D" uid="uid://b5iciiiuev4au" path="res://theme/GUI.png" id="2_b0ok5"]
 [ext_resource type="Texture2D" uid="uid://dick5m3ybn5j8" path="res://z/MonedaD.png" id="4_ncjme"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oqg80"]
+
+[sub_resource type="GDScript" id="GDScript_hok34"]
+script/source = "extends Panel
+
+@onready var panel: Panel = $\".\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var esc_pressed = Input.is_action_just_pressed(\"pause\")
+	if (esc_pressed == true):
+		get_tree().paused = true
+		panel.show()
+
+
+func _on_resume_pressed() -> void:
+	panel.hide()
+	get_tree().paused = false
+
+
+func _on_resume_button_down() -> void:
+	panel.hide()
+	get_tree().paused = false
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1eill"]
 atlas = ExtResource("2_b0ok5")
@@ -68,6 +96,7 @@ offset_right = 374.0
 offset_bottom = 153.0
 scale = Vector2(1.5, 1.5)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_oqg80")
+script = SubResource("GDScript_hok34")
 metadata/_edit_group_ = true
 
 [node name="Hidden" type="MarginContainer" parent="Hearts"]
