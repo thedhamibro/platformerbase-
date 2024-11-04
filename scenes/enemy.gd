@@ -79,14 +79,14 @@ func choose(array):
 	return array.front()
 
 
-#func _on_hitbox_area_entered(area: Area2D) -> void:
-	#var damage = player.hitDamage
-	#if area == player.playerDamageArea:
-		#take_damage(damage)
-		#
-#func take_damage(damage):
-	#health -= damage
-	#taking_damage = true
-	#if health <= health_min:
-		#health = health_min
-		#dead = true
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	var damage = player.hitDamage
+	if area == player.playerDamageArea:
+		take_damage(damage)
+		
+func take_damage(damage):
+	health = damage
+	taking_damage = true
+	if health <= health_min:
+		health = health_min
+		dead = true
