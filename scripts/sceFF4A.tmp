@@ -9570,6 +9570,9 @@ position = Vector2(888, -70)
 
 [node name="Enemy" parent="." instance=ExtResource("33_uypi5")]
 position = Vector2(1391, -94)
+speed = null
+left_bound = null
+right_bound = null
 
 [node name="StartGameDetection" type="Area2D" parent="."]
 
