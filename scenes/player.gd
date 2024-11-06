@@ -12,6 +12,7 @@ const ATTACK_COOLDOWN: float = 0.5
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var last_checkpoint_position: Vector2 = Vector2()
 @onready var damage_zone: Area2D = $"Damage Zone"  # Ensure the path is correct
+var dead: bool =  false
 
 # Attack Variables
 var is_attacking: bool = false
@@ -21,7 +22,7 @@ var attackType: int = 0
 
 # Node References
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hitbox: Area2D = $HItbox  # Ensure the path is correct
+@onready var hitbox: Area2D = $Hitbox  # Ensure the path is correct
 
 # Physics Process
 func _physics_process(delta: float) -> void:
@@ -34,8 +35,9 @@ func _physics_process(delta: float) -> void:
 # Movement Handling (without smooth movement)
 func handle_movement(delta: float) -> void:
 	if Global.lives == 0:
-		get_tree().reload_current_scene()
+		death()
 		Global.lives = Global.max_lives
+		
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -58,7 +60,7 @@ func handle_movement(delta: float) -> void:
 # Animation Handling
 func handle_animations(delta: float) -> void:
 	var direction = Input.get_axis("left", "right")
-	if is_on_floor():
+	if is_on_floor() and !dead:
 		if Input.is_action_just_pressed("attack_left") and not is_attacking:
 			attack_left()
 		elif Input.is_action_just_pressed("attack_right") and not is_attacking:
@@ -67,8 +69,10 @@ func handle_animations(delta: float) -> void:
 			animated_sprite.play("idle")
 		elif not is_attacking:
 			animated_sprite.play("run")
-	elif not is_attacking:
+	elif not is_attacking and !dead:
 		animated_sprite.play("jump")
+	elif dead:
+		animated_sprite.play("death")
 
 # Attack Handling
 func attack_left() -> void:
@@ -111,7 +115,6 @@ func _on_animation_finished(anim_name: String) -> void:
 		is_attacking = false
 
 func _on_damage() -> void:
-	Global.lives -= 1
 	respawn()
 
 func _on_player_reached_checkpoint(position: Vector2) -> void:
@@ -123,7 +126,21 @@ func respawn() -> void:
 	position = last_checkpoint_position
 	emit_signal("update_hearts")
 
-# Damage Zone Signal Handler
-func _on_damage_zone_body_entered(body: Node) -> void:
-	#handle_attack_damage(body.name)  # Optional based on your logic
-	pass
+func _on_enemy_damage() -> void:
+	Global.lives -= 1
+	emit_signal("update_hearts")
+
+# Death Handling
+func death():
+	dead = true
+	Engine.time_scale = 0.3  # Slow down everything
+
+	# Play the player death animation at normal speed
+	animated_sprite.speed_scale = 1.0
+	animated_sprite.play("death")
+
+	# Delay the scene restart to allow the death animation to play
+	await get_tree().create_timer(1.5).timeout  # Adjust time as needed to fit the animation
+
+	Engine.time_scale = 1.0  # Reset time scale
+	get_tree().reload_current_scene()  # Restart the scene

@@ -9580,4 +9580,5 @@ shape = SubResource("RectangleShape2D_2mp84")
 [connection signal="damage" from="player" to="killzone" method="_on_player_damage"]
 [connection signal="update_hearts" from="player" to="GameManager/GUI2" method="_on_player_update_hearts"]
 [connection signal="player_reached_checkpoint" from="Checkpoints/Checkpoint" to="player" method="_on_player_reached_checkpoint"]
+[connection signal="damage" from="Enemy" to="player" method="_on_enemy_damage"]
 [connection signal="body_entered" from="StartGameDetection" to="." method="_on_start_game_detection_body_entered"]
