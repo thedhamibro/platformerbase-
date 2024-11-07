@@ -1,10 +1,9 @@
+# enemy.gd
 extends CharacterBody2D
 class_name Enemy
 
 # Signals
-@warning_ignore("unused_signal")
 signal damage
-@warning_ignore("unused_signal")
 signal update_hearts
 
 # Exported Variables
@@ -30,7 +29,6 @@ var player_in_area: bool = false
 # References
 @onready var player: CharacterBody2D = $"../Player"  # Ensure the path is correct
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var attack_area: Area2D = $AttackZone
 
 func _ready() -> void:
 	health = health_max
@@ -43,7 +41,6 @@ func _process(delta: float) -> void:
 	move_enemy(delta)
 	move_and_slide()
 
-@warning_ignore("unused_parameter")
 func move_enemy(delta: float) -> void:
 	if dead:
 		velocity.x = 0
@@ -68,7 +65,6 @@ func move_enemy(delta: float) -> void:
 
 	is_roaming = true  # Reset roaming status
 
-@warning_ignore("unused_parameter")
 func handle_anim(delta: float) -> void:
 	if dead:
 		if is_roaming:
@@ -81,18 +77,11 @@ func handle_anim(delta: float) -> void:
 		await get_tree().create_timer(0.7).timeout
 		taking_damage = false
 	elif is_dealing_damage:
-		animated_sprite.play("attack")
+		# Handle dealing damage animations if any
 		pass
 	else:
 		animated_sprite.play("walk")
-		if dir == Vector2.RIGHT:
-			animated_sprite.flip_h = false
-			attack_area.scale.x = 1  # Set scale to normal for right
-		elif dir == Vector2.LEFT:
-			animated_sprite.flip_h = true
-			attack_area.scale.x = -1  # Flip `attack_area` for left
-			
-			
+		animated_sprite.flip_h = (dir.x == -1)
 
 func handle_death() -> void:
 	queue_free()
@@ -100,7 +89,6 @@ func handle_death() -> void:
 # Internal Variables
 var is_damaged: bool = false  # Prevents repeated damage within a single attack
 
-@warning_ignore("shadowed_variable")
 func take_damage(damage: int) -> void:
 	if dead or is_damaged:
 		return  # Prevent taking damage if already dead or recently damaged
@@ -134,25 +122,3 @@ func _on_player_in_range(body: Node) -> void:
 func _on_player_out_of_range(body: Node) -> void:
 	if body is Player:
 		is_enemy_chase = false
-
-
-@warning_ignore("unused_parameter")
-func _on_attack_zone_body_entered(body: Node2D) -> void:
-	if body is Player and !is_dealing_damage:
-		attack_player()
-
-
-@warning_ignore("unused_parameter")
-func _on_attack_zone_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
-
-func attack_player():
-	is_dealing_damage = true
-	var original_position = attack_area.position
-	attack_area.position += Vector2(8, -3)
-	animated_sprite.play("attack")
-	await get_tree().create_timer(0.4).timeout
-	emit_signal("damage")
-	await get_tree().create_timer(0.4).timeout
-	attack_area.position = original_position
-	is_dealing_damage = false
