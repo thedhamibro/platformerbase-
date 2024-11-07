@@ -428,9 +428,6 @@ frame_progress = 0.666475
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3l5n3")
 
-[node name="DIrectionTimer" type="Timer" parent="."]
-autostart = true
-
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -441,6 +438,5 @@ shape = SubResource("CapsuleShape2D_5gqyn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageToDealArea"]
 shape = SubResource("CapsuleShape2D_5gqyn")
 
-[connection signal="timeout" from="DIrectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="DamageToDealArea" to="." method="_on_hitbox_area_entered"]

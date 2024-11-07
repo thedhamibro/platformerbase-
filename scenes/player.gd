@@ -90,7 +90,7 @@ func attack_right() -> void:
 
 # Check Hitbox
 func check_hitbox():
-	var hitbox_areas = $Hitbox.get_overlapping_areas()
+	var hitbox_areas = $HItbox.get_overlapping_areas()
 	if hitbox_areas and is_attacking:
 		for hitbox in hitbox_areas:
 			if hitbox.get_parent() is Enemy:

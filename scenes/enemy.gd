@@ -68,12 +68,6 @@ func handle_anim():
 func handle_death():
 	self.queue_free()
 
-func _on_direction_timer_timeout() -> void:
-	var dir_timer: Timer = $DIrectionTimer
-	dir_timer.wait_time = choose([3.0, 4.0, 5.0])
-	if !is_enemy_chase:
-		dir = choose([Vector2.RIGHT, Vector2.LEFT])
-
 func choose(array):
 	array.shuffle()
 	return array.front()
