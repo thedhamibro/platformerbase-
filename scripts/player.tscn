@@ -374,6 +374,7 @@ SPEED = 150.0
 sprite_frames = SubResource("SpriteFrames_ebx3w")
 animation = &"attack2"
 autoplay = "idle"
+frame_progress = 0.314342
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-5, 4)
@@ -386,9 +387,9 @@ position = Vector2(-5, 4)
 shape = SubResource("CapsuleShape2D_f55so")
 
 [node name="Damage Zone" type="Area2D" parent="."]
-position = Vector2(34, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage Zone"]
+position = Vector2(34, 2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wjo76")
 
