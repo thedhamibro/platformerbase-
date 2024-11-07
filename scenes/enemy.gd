@@ -12,12 +12,20 @@ var dead: bool = false
 var taking_damage: bool = false
 var damage_to_deal = 20 
 var is_dealing_damage: bool = false
-var dir: Vector2
-const gravity = 900
-var knockback = -20
-var is_roaming: bool = true 
-var player_in_area = false
-@onready var player: CharacterBody2D = $"../player"
+var dir: Vector2 = Vector2.RIGHT
+const GRAVITY: float = 900.0
+var knockback: float = -20.0
+var is_roaming: bool = true
+var player_in_area: bool = false
+
+# References
+@onready var player: CharacterBody2D = $"../Player"  # Ensure the path is correct
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var attack_area: Area2D = $AttackZone
+
+func _ready() -> void:
+	health = health_max
+	print("Enemy Health Initialized:", health)
 
 func _process(delta: float) -> void:
 	if !is_on_floor():

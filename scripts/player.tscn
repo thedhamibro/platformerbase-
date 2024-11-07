@@ -383,7 +383,7 @@ SPEED = 150.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ebx3w")
-animation = &"attack2"
+animation = &"death"
 autoplay = "idle"
 frame_progress = 0.314342
 
