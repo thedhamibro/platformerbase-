@@ -21,7 +21,7 @@ var player_in_area: bool = false
 # References
 @onready var player: CharacterBody2D = $"../player"  # Ensure the path is correct
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var attack_area: Area2D = $AttackZone
+@onready var attack_area: RayCast2D = $AttackPlayer
 
 func _ready() -> void:
 	health = health_max
@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 	handle_anim()
 	move(delta)
 	move_and_slide()
+	check_raycast()
 
 func move(delta):
 	if !dead:
@@ -101,3 +102,14 @@ func _on_player_attack() -> void:
 	var damage = player.hitDamage
 	if player.is_attacking:
 		take_damage(damage)
+
+func check_raycast():
+	if attack_area.is_colliding() and !dead and !taking_damage and !is_dealing_damage :
+		if attack_area.get_collider() is Player:
+			attack()
+
+func attack():
+	is_dealing_damage = true
+	emit_signal("attacking_player")
+	await get_tree().create_timer(0.8).timeout
+	is_dealing_damage = false
