@@ -4,6 +4,7 @@ class_name player
 
 signal damage
 signal update_hearts
+signal attack
 
 # Movement Variables
 @export var SPEED: float = 130.0
@@ -23,6 +24,7 @@ var attackType
 # Node References
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Area2D = $Hitbox  # Ensure the path is correct
+@onready var enemy: Enemy = $"../Enemy"
 
 # Physics Process
 func _physics_process(delta):
@@ -35,7 +37,7 @@ func _physics_process(delta):
 # Movement Handling
 func handle_movement(delta):
 	if Global.lives == 0:
-		death()
+		respawn()
 		Global.lives = Global.max_lives
 		
 
@@ -78,6 +80,7 @@ func handle_animations():
 # Attack Handling
 func attack_left() -> void:
 	is_attacking = true
+	attackType = 1
 	attack_timer = ATTACK_COOLDOWN
 	animated_sprite.play("attack1")  # Replace with your left attack animation
 	await get_tree().create_timer(0.5).timeout  # Adjust this timer to match animation length
@@ -85,6 +88,7 @@ func attack_left() -> void:
 
 func attack_right() -> void:
 	is_attacking = true
+	attackType = 2
 	attack_timer = ATTACK_COOLDOWN
 	animated_sprite.play("attack2")  # Replace with your right attack animation
 	await get_tree().create_timer(0.5).timeout  # Adjust this timer to match animation length
@@ -92,11 +96,15 @@ func attack_right() -> void:
 
 # Check Hitbox
 func check_hitbox():
-	var hitbox_areas = $HItbox.get_overlapping_areas()
-	if hitbox_areas and is_attacking:
-		for hitbox in hitbox_areas:
-			if hitbox.get_parent() is Enemy:
-				hitbox.get_parent().take_damage(hitDamage)
+	var damage_areas = damage_zone.get_overlapping_areas()
+	var body = damage_zone.get_overlapping_bodies()
+	if damage_zone and is_attacking:
+		for damage_zone in damage_areas:
+			if damage_zone.get_parent() is Enemy:
+				handle_attack_damage()
+				emit_signal("attack", body)
+				enemy.take_damage(hitDamage)
+				await get_tree().create_timer(0.6).timeout
 
 # Signal Handlers
 func _on_animation_finished(anim_name: String) -> void:
@@ -104,6 +112,7 @@ func _on_animation_finished(anim_name: String) -> void:
 		pass
 
 func _on_damage() -> void:
+	Global.lives -= 1
 	respawn()
 
 func _on_player_reached_checkpoint(position) -> void:
@@ -115,13 +124,8 @@ func respawn():
 	self.position = last_checkpoint_position
 	emit_signal("update_hearts")
 
-func handle_attack_damage(body_name):
-	if body_name == "Enemy" and is_attacking:
-		if attackType == 1:
-			hitDamage = 10
-		elif attackType == 2:
-			hitDamage = 20
-
-# Damage Zone Signal Handler
-func _on_damage_zone_body_entered(body: Node2D) -> void:
-	handle_attack_damage(body.name)
+func handle_attack_damage():
+	if attackType == 1:
+		hitDamage = 30
+	elif attackType == 2:
+		hitDamage = 40

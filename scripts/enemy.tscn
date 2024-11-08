@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://drogy24g50th2"]
+[gd_scene load_steps=63 format=3 uid="uid://drogy24g50th2"]
 
 [ext_resource type="Texture2D" uid="uid://d4lmgifkh54ip" path="res://Skeleton Sprite Pack/Skeleton/Sprite Sheets/Skeleton Attack.png" id="1_b33pv"]
 [ext_resource type="Script" path="res://scenes/enemy.gd" id="1_y1e8e"]
@@ -415,8 +415,6 @@ height = 36.0
 radius = 11.0
 height = 40.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_68k5s"]
-
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_y1e8e")
 
@@ -442,4 +440,3 @@ shape = SubResource("CapsuleShape2D_5gqyn")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="GetHitArea" to="." method="_on_hitbox_area_entered"]
-[connection signal="body_entered" from="AttackZone" to="." method="_on_attack_zone_body_entered"]

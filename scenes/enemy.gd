@@ -19,7 +19,7 @@ var is_roaming: bool = true
 var player_in_area: bool = false
 
 # References
-@onready var player: CharacterBody2D = $"../Player"  # Ensure the path is correct
+@onready var player: CharacterBody2D = $"../player"  # Ensure the path is correct
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackZone
 
@@ -29,9 +29,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if !is_on_floor():
-		velocity.y += gravity * delta
-	#Global.enemyDamageAmount = damage_to_deal
-	#Global.enemyDamageZone = $DamageToDealArea
+		velocity.y += GRAVITY * delta
 	handle_anim()
 	move(delta)
 	move_and_slide()
@@ -87,14 +85,19 @@ func choose(array):
 	return array.front()
 
 
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	var damage = player.hitDamage
-	if area == player.playerDamageArea:
-		take_damage(damage)
+func _on_hitbox_area_entered() -> void:
+	pass
 		
 func take_damage(damage):
-	health = damage
+	health -= damage
 	taking_damage = true
+	print(health)
 	if health <= health_min:
 		health = health_min
 		dead = true
+
+
+func _on_player_attack() -> void:
+	var damage = player.hitDamage
+	if player.is_attacking:
+		take_damage(damage)

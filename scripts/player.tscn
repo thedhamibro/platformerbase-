@@ -372,7 +372,6 @@ colors = PackedColorArray(1, 1, 1, 1, 0.299548, 0.299547, 0.299547, 1, 0, 0, 0, 
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_12dep"]
 gradient = SubResource("Gradient_qirj6")
-use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
@@ -408,9 +407,9 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wjo76")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.8
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_12dep")
-texture_scale = 2.0
 
 [connection signal="damage" from="." to="." method="_on_damage"]
 [connection signal="body_entered" from="Damage Zone" to="." method="_on_damage_zone_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=57 format=4 uid="uid://hmx7qyqnrriq"]
 
 [ext_resource type="PackedScene" uid="uid://cyabn35q4nywb" path="res://scripts/transition.tscn" id="1_00s5d"]
 [ext_resource type="Script" path="res://scripts/scene_1.gd" id="1_iqd70"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://rdcup0us0h6x" path="res://assets/collections/oak_woods_v1.0/decorations/sign.png" id="21_o2tvj"]
 [ext_resource type="Texture2D" uid="uid://cr5uk183kefol" path="res://assets/collections/oak_woods_v1.0/decorations/fence_2.png" id="23_vchpf"]
 [ext_resource type="Texture2D" uid="uid://chcem17osd1ee" path="res://assets/collections/oak_woods_v1.0/decorations/fence_1.png" id="24_8bldb"]
+[ext_resource type="Script" path="res://scenes/killzone.gd" id="25_p1ibj"]
 [ext_resource type="PackedScene" uid="uid://cp2pvdv42n5cy" path="res://scripts/game_manager.tscn" id="30_kpwks"]
 [ext_resource type="PackedScene" uid="uid://cogpe7is57gaw" path="res://scripts/gui.tscn" id="30_tdejt"]
 [ext_resource type="PackedScene" uid="uid://cmbr7m5n8oy61" path="res://scenes/coins.tscn" id="31_aqe00"]
@@ -9521,6 +9522,7 @@ position_smoothing_enabled = true
 position = Vector2(1, 3)
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("25_p1ibj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
 position = Vector2(34, 168)
@@ -9585,27 +9587,27 @@ position = Vector2(3157.5, -139)
 shape = SubResource("RectangleShape2D_2mp84")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-color = Color(0.231373, 0.12549, 0.133333, 1)
-energy = 0.5
-blend_mode = 2
+energy = 0.7
+blend_mode = 1
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-424, -52)
 scale = Vector2(0.75, 0.796875)
-energy = 0.8
 texture = SubResource("GradientTexture2D_boxoy")
+texture_scale = 2.0
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 position = Vector2(-331, -52)
 scale = Vector2(0.75, 0.796875)
 texture = SubResource("GradientTexture2D_boxoy")
+texture_scale = 2.0
 
 [node name="PointLight2D3" type="PointLight2D" parent="."]
 position = Vector2(-248, -50)
 scale = Vector2(0.75, 0.796875)
 texture = SubResource("GradientTexture2D_boxoy")
+texture_scale = 2.0
 
-[connection signal="attack" from="player" to="Enemy" method="_on_player_attack"]
 [connection signal="damage" from="player" to="killzone" method="_on_player_damage"]
 [connection signal="update_hearts" from="player" to="GameManager/GUI2" method="_on_player_update_hearts"]
 [connection signal="player_reached_checkpoint" from="Checkpoints/Checkpoint" to="player" method="_on_player_reached_checkpoint"]
