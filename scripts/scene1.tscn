@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://hmx7qyqnrriq"]
+[gd_scene load_steps=57 format=4 uid="uid://hmx7qyqnrriq"]
 
 [ext_resource type="PackedScene" uid="uid://cyabn35q4nywb" path="res://scripts/transition.tscn" id="1_00s5d"]
 [ext_resource type="Script" path="res://scripts/scene_1.gd" id="1_iqd70"]
@@ -32,7 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://cmbr7m5n8oy61" path="res://scenes/coins.tscn" id="31_aqe00"]
 [ext_resource type="Script" path="res://scripts/gui.gd" id="31_fcve2"]
 [ext_resource type="PackedScene" uid="uid://bms23j6xxfm8i" path="res://scripts/checkpoint.tscn" id="33_ncqqv"]
-[ext_resource type="PackedScene" uid="uid://drogy24g50th2" path="res://scripts/enemy.tscn" id="33_uypi5"]
+[ext_resource type="PackedScene" uid="uid://drogy24g50th2" path="res://scripts/Enemy.tscn" id="33_uypi5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_snqlh"]
 texture = ExtResource("2_jnkdp")
@@ -9280,6 +9280,15 @@ distance = -87.0055
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mp84"]
 size = Vector2(43, 126)
 
+[sub_resource type="Gradient" id="Gradient_ma18b"]
+offsets = PackedFloat32Array(0, 0.766667)
+colors = PackedColorArray(1, 1, 0.596078, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_boxoy"]
+gradient = SubResource("Gradient_ma18b")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_iqd70")
 metadata/_edit_horizontal_guides_ = [-101.0, -384.0]
@@ -9577,7 +9586,30 @@ position = Vector2(1391, -94)
 position = Vector2(3157.5, -139)
 shape = SubResource("RectangleShape2D_2mp84")
 
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.7
+blend_mode = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-424, -52)
+scale = Vector2(0.75, 0.796875)
+texture = SubResource("GradientTexture2D_boxoy")
+texture_scale = 2.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-331, -52)
+scale = Vector2(0.75, 0.796875)
+texture = SubResource("GradientTexture2D_boxoy")
+texture_scale = 2.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(-248, -50)
+scale = Vector2(0.75, 0.796875)
+texture = SubResource("GradientTexture2D_boxoy")
+texture_scale = 2.0
+
 [connection signal="damage" from="player" to="killzone" method="_on_player_damage"]
 [connection signal="update_hearts" from="player" to="GameManager/GUI2" method="_on_player_update_hearts"]
 [connection signal="player_reached_checkpoint" from="Checkpoints/Checkpoint" to="player" method="_on_player_reached_checkpoint"]
+[connection signal="damage" from="Enemy" to="player" method="_on_enemy_damage"]
 [connection signal="body_entered" from="StartGameDetection" to="." method="_on_start_game_detection_body_entered"]

@@ -6,12 +6,13 @@ signal damage
 signal update_hearts
 
 # Movement Variables
-@export var SPEED = 130.0
-@export var JUMP_VELOCITY = -300.0
-const ATTACK_COOLDOWN = 0.5
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var last_checkpoint_position = Vector2()
-@onready var damage_zone: Area2D = $"Damage Zone"
+@export var SPEED: float = 130.0
+@export var JUMP_VELOCITY: float = -300.0
+const ATTACK_COOLDOWN: float = 0.5
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var last_checkpoint_position: Vector2 = Vector2()
+@onready var damage_zone: Area2D = $"Damage Zone"  # Ensure the path is correct
+var dead: bool =  false
 
 # Attack Variables
 var is_attacking = false  # Starts as false
@@ -20,8 +21,8 @@ var hitDamage = 0
 var attackType
 
 # Node References
-@onready var animated_sprite = $AnimatedSprite2D
-var playerDamageArea
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox: Area2D = $Hitbox  # Ensure the path is correct
 
 # Physics Process
 func _physics_process(delta):
@@ -34,8 +35,9 @@ func _physics_process(delta):
 # Movement Handling
 func handle_movement(delta):
 	if Global.lives == 0:
-		get_tree().reload_current_scene()
+		death()
 		Global.lives = Global.max_lives
+		
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -59,19 +61,19 @@ func handle_movement(delta):
 # Animation Handling
 func handle_animations():
 	var direction = Input.get_axis("left", "right")
-	if is_on_floor():
-		if Input.is_action_just_pressed("attack_left") and !is_attacking:
-			await attack_left()
-			attackType = 1
-		elif Input.is_action_just_pressed("attack_right") and !is_attacking:
-			await attack_right()
-			attackType = 2
-		elif direction == 0 and !is_attacking:
+	if is_on_floor() and !dead:
+		if Input.is_action_just_pressed("attack_left") and not is_attacking:
+			attack_left()
+		elif Input.is_action_just_pressed("attack_right") and not is_attacking:
+			attack_right()
+		elif direction == 0 and not is_attacking:
 			animated_sprite.play("idle")
 		elif !is_attacking:
 			animated_sprite.play("run")
 	elif !is_attacking:
 		animated_sprite.play("jump")
+	elif dead:
+		animated_sprite.play("death")
 
 # Attack Handling
 func attack_left() -> void:
@@ -90,7 +92,7 @@ func attack_right() -> void:
 
 # Check Hitbox
 func check_hitbox():
-	var hitbox_areas = $Hitbox.get_overlapping_areas()
+	var hitbox_areas = $HItbox.get_overlapping_areas()
 	if hitbox_areas and is_attacking:
 		for hitbox in hitbox_areas:
 			if hitbox.get_parent() is Enemy:
@@ -102,7 +104,6 @@ func _on_animation_finished(anim_name: String) -> void:
 		pass
 
 func _on_damage() -> void:
-	Global.lives -= 1
 	respawn()
 
 func _on_player_reached_checkpoint(position) -> void:
