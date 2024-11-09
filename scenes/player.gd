@@ -51,11 +51,16 @@ func handle_movement(delta):
 		animated_sprite.flip_h = true
 		damage_zone.scale.x = -1
 
+<<<<<<< Updated upstream
 	if direction and !is_attacking:
+=======
+	if direction and not is_attacking and not is_defending:
+>>>>>>> Stashed changes
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+<<<<<<< Updated upstream
 # Animation Handling
 func handle_animations():
 	var direction = Input.get_axis("left", "right")
@@ -65,6 +70,21 @@ func handle_animations():
 		elif Input.is_action_just_pressed("attack_right") and !is_attacking:
 			attack_right()
 		elif direction == 0 and !is_attacking:
+=======
+	# Handle attacking
+	if is_on_floor():
+		if Input.is_action_just_pressed("attack") and not is_attacking:
+			attack()
+		elif is_attacking:
+			animated_sprite.play("attack1")  # Play attack animation
+
+		# Handle defending
+		elif Input.is_action_just_pressed("defend") and not is_defending:
+			defend()
+		elif is_defending:
+			animated_sprite.play("defend_up")  # Play holding shield animation
+		elif direction == 0:
+>>>>>>> Stashed changes
 			animated_sprite.play("idle")
 		elif !is_attacking:
 			animated_sprite.play("run")
@@ -73,12 +93,27 @@ func handle_animations():
 	elif dead:
 		animated_sprite.play("death")
 
+<<<<<<< Updated upstream
 # Separate Attack Functions for Left and Right
 func attack_left() -> void:
 	if is_attacking:
 		return  # Prevent multiple attacks during cooldown
+=======
+	# Manage attack cooldown
+	if is_attacking:
+		attack_timer -= delta
+		if attack_timer <= 0:
+			is_attacking = false
+			
+	# Manage defend cooldown
+	if is_defending:
+		defend_timer -= delta
+		if defend_timer <= 0:
+			stop_defending()  # Call a function to handle stopping the defense
+>>>>>>> Stashed changes
 
 	is_attacking = true
+<<<<<<< Updated upstream
 	attackType = 1
 	attack_applied = false  # Reset damage application flag for new attack
 	animated_sprite.play("attack1")  # Replace with left attack animation
@@ -135,3 +170,23 @@ func _on_player_reached_checkpoint(position) -> void:
 func respawn():
 	self.position = last_checkpoint_position
 	emit_signal("update_hearts")
+=======
+	attack_timer = ATTACK_COOLDOWN
+	animated_sprite.play("attack1")
+
+func defend() -> void:
+	is_defending = true
+	defend_timer = ATTACK_COOLDOWN
+	animated_sprite.play("defend_raise")  # Play raise shield animation
+
+func stop_defending() -> void:
+	is_defending = false
+	animated_sprite.play("defend_down")  # Play lower shield animation
+	defend_timer = ATTACK_COOLDOWN  # Reset timer if you want a cooldown
+
+func _on_animation_finished(anim_name: String) -> void:
+	if anim_name == "attack1":
+		is_attacking = false
+	elif anim_name == "defend_down":
+		is_defending = false  # Reset defense state when animation ends
+>>>>>>> Stashed changes

@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream:scripts/mai2994.tmp
 [gd_scene load_steps=47 format=4 uid="uid://hmx7qyqnrriq"]
+=======
+[gd_scene load_steps=16 format=4 uid="uid://brpx68pyeo8n3"]
+>>>>>>> Stashed changes:main.tscn
 
 [ext_resource type="PackedScene" uid="uid://lyiywr38e2pd" path="res://scenes/player.tscn" id="1_qpll5"]
 [ext_resource type="Texture2D" uid="uid://rqnc6tva3dxd" path="res://PixelPlatformerSet1v.1.1/main_lev_build.png" id="2_jnkdp"]

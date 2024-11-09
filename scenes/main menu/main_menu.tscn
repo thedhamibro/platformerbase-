@@ -1,0 +1,152 @@
+[gd_scene load_steps=8 format=3 uid="uid://ot854hojhsw"]
+
+[ext_resource type="Script" path="res://scenes/main menu/main_menu.gd" id="1_54lxv"]
+[ext_resource type="Texture2D" uid="uid://by8uatyj15rax" path="res://PixelPlatformerSet1v.1.1/Background/01 background.png" id="1_nqra2"]
+[ext_resource type="Texture2D" uid="uid://2i3uiwmwcsai" path="res://PixelPlatformerSet1v.1.1/Background/02 background.png" id="2_te8y3"]
+[ext_resource type="Texture2D" uid="uid://dcdsgmtt2c5nt" path="res://PixelPlatformerSet1v.1.1/Background/03 background A.png" id="3_cyvel"]
+[ext_resource type="Texture2D" uid="uid://cujn2esx1l326" path="res://PixelPlatformerSet1v.1.1/Background/04 background.png" id="4_n4fdg"]
+[ext_resource type="Texture2D" uid="uid://d2b51jt3fji1c" path="res://PixelPlatformerSet1v.1.1/Background/05 background.png" id="5_xos5w"]
+
+[sub_resource type="SystemFont" id="SystemFont_p3anu"]
+font_names = PackedStringArray("Times New Roman")
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_54lxv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="seprator" type="Node" parent="MarginContainer/VBoxContainer"]
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/seprator"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -22.0
+offset_top = 74.0
+offset_right = 30.0
+offset_bottom = 218.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/outline_size = 24
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = SubResource("SystemFont_p3anu")
+theme_override_font_sizes/font_size = 64
+text = "GAME TITLE"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="seprator2" type="Node" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+
+[node name="start_button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "START"
+
+[node name="seprator3" type="Node" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+
+[node name="exit_buuton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+action_mode = 0
+text = "QUIT"
+
+[node name="Node2D" type="Node2D" parent="MarginContainer"]
+z_index = -99
+position = Vector2(563, 251)
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -563.0
+offset_top = -255.0
+offset_right = 587.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_nqra2")
+
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -562.0
+offset_top = -192.0
+offset_right = 589.0
+offset_bottom = 384.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_te8y3")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -567.0
+offset_top = -192.0
+offset_right = 597.0
+offset_bottom = 393.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_cyvel")
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -560.0
+offset_top = -189.0
+offset_right = 588.0
+offset_bottom = 388.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_n4fdg")
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -562.0
+offset_top = -256.0
+offset_right = 590.0
+offset_bottom = 389.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_xos5w")
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/exit_buuton" to="." method="_on_exit_buuton_pressed"]
